@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:layout_width = "wrap_content"
+              android:layout_height = "wrap_content"
+              android:layout_gravity = "center"
+              android:orientation = "vertical">
+
+
+    <EditText
+        android:id = "@+id/dialog_post_edit_text_title"
+        style = "@style/EditTextPostDialog"
+        android:hint = "@string/hint_enter_title"/>
+
+    <EditText
+        android:id = "@+id/dialog_post_edit_text_body"
+        style = "@style/EditTextPostDialog"
+        android:hint = "@string/hint_enter_body"/>
+
+    <LinearLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "60dp"
+        android:layout_marginTop = "@dimen/margin_normal">
+
+        <Button
+            android:id = "@+id/dialog_post_btn_cancel"
+            style = "@style/ButtonPostDialog"
+            android:layout_marginRight = "@dimen/margin_normal"
+            android:text = "@string/txt_cancel"/>
+
+        <Button
+            android:id = "@+id/dialog_post_btn_add_post"
+            style = "@style/ButtonPostDialog"
+            android:layout_marginLeft = "@dimen/margin_normal"
+            android:text = "@string/txt_confirm"/>
+
+    </LinearLayout>
+
+</LinearLayout>

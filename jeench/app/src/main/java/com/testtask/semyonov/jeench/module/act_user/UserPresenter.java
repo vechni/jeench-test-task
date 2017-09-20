@@ -13,8 +13,8 @@ public class UserPresenter
         implements UserContract.Presenter
 {
     public static final String TAG = UserPresenter.class.getSimpleName();
-    private View view;
 
+    private View view;
     @Inject DataLayer dataLayer;
 
     UserPresenter(){

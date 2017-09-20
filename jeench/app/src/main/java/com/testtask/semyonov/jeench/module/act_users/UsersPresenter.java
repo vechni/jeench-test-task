@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class UsersPresenter
@@ -24,8 +25,8 @@ public class UsersPresenter
         implements UsersContract.Presenter
 {
     public static final String TAG = UsersPresenter.class.getSimpleName();
-    private View view;
 
+    private View view;
     @Inject DataLayer dataLayer;
 
     UsersPresenter(){
@@ -41,12 +42,12 @@ public class UsersPresenter
     @Override
     public void onStart(){
         super.onStart();
-        requestUsers();
+        unsubscribeOnDestroy(requestUsers());
     }
 
     @Override
     public void onRefresh(){
-        requestUsers();
+        unsubscribeOnDestroy(requestUsers());
     }
 
     @Override
@@ -54,13 +55,13 @@ public class UsersPresenter
         view.openUserView(model);
     }
 
-    private void requestUsers(){
-        dataLayer.rest.requestUsers()
+    private Disposable requestUsers(){
+        return dataLayer.rest.requestUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response->{
+                .subscribe(response -> {
                     view.updateUsers(mapToViewModel(response));
-                }, e->{
+                }, e -> {
                     if( e instanceof NoConnectivityException ){
                         view.hideLoadIndicator();
                         view.showToastShort(e.getMessage());

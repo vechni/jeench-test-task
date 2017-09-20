@@ -16,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PostsPresenter
@@ -42,7 +43,7 @@ public class PostsPresenter
     @Override
     public void onStart(){
         super.onStart();
-        requestPosts();
+        unsubscribeOnDestroy(requestPosts());
     }
 
     @Override
@@ -50,13 +51,13 @@ public class PostsPresenter
         view.openAddPostView(userId);
     }
 
-    private void requestPosts(){
-        dataLayer.rest.requestPosts(userId)
+    private Disposable requestPosts(){
+        return dataLayer.rest.requestPosts(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response->{
+                .subscribe(response -> {
                     view.updatePosts(mapToViewModel(response));
-                }, e->{
+                }, e -> {
                     if( e instanceof NoConnectivityException ){
                         view.showToastShort(e.getMessage());
                         return;

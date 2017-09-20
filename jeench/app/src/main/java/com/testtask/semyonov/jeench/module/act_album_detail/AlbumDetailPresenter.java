@@ -16,13 +16,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class AlbumDetailPresenter
         extends BasePresenter<View>
         implements AlbumDetailContract.Presenter
 {
-    public static final String TAG = "tag_settings_prs";
+    public static final String TAG = AlbumDetailPresenter.class.getSimpleName();
 
     private View view;
     private int albumId;
@@ -42,21 +43,21 @@ public class AlbumDetailPresenter
     @Override
     public void onStart(){
         super.onStart();
-        requestContentAlbum();
+        unsubscribeOnDestroy(requestContentAlbum());
     }
 
     @Override
     public void onRefresh(){
-        requestContentAlbum();
+        unsubscribeOnDestroy(requestContentAlbum());
     }
 
-    private void requestContentAlbum(){
-        dataLayer.rest.requestAlbum(albumId)
+    private Disposable requestContentAlbum(){
+        return dataLayer.rest.requestAlbum(albumId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response->{
+                .subscribe(response -> {
                     view.updateContentAlbum(mapToViewModel(response));
-                }, e->{
+                }, e -> {
                     if( e instanceof NoConnectivityException ){
                         view.hideLoadIndicator();
                         view.showToastShort(e.getMessage());

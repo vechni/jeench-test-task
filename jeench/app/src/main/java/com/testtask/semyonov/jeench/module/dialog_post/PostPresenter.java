@@ -11,15 +11,16 @@ import com.testtask.semyonov.jeench.module.dialog_post.PostContract.View;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PostPresenter
         extends BasePresenter<PostContract.View>
         implements PostContract.Presenter
 {
-    @Inject DataLayer dataLayer;
     private View view;
     private int userId;
+    @Inject DataLayer dataLayer;
 
     PostPresenter( final int userId ){
         getPresenterComponent().inject(this);
@@ -34,26 +35,30 @@ public class PostPresenter
 
     @Override
     public void onConfirmAddPostClicked( @NonNull final String title, @NonNull final String body ){
-        dataLayer.rest.sendPost(userId, title, body)
+        unsubscribeOnDestroy(addPostRequest(title, body));
+    }
+
+    @Override
+    public void onCancelClicked(){
+        view.closeDialog();
+    }
+
+    private Disposable addPostRequest( @NonNull final String title, @NonNull final String body ){
+        return dataLayer.rest.sendPost(userId, title, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response->{
+                .subscribe(response -> {
                     if( response.getUserId() == userId ){
                         view.showToastShort(R.string.msg_post_added);
                         return;
                     }
                     view.showToastShort(R.string.msg_error_request);
-                }, e->{
+                }, e -> {
                     if( e instanceof NoConnectivityException ){
                         view.showToastShort(e.getMessage());
                         return;
                     }
                     view.showToastShort(R.string.msg_error_request);
                 });
-    }
-
-    @Override
-    public void onCancelClicked(){
-        view.closeDialog();
     }
 }

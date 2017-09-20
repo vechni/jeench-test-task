@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class AlbumDetailDTO
 {
-
     @SerializedName( "albumId" )
     private int albumId;
     @SerializedName( "id" )

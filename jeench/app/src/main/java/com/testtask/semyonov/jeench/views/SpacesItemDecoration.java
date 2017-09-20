@@ -9,7 +9,6 @@ import android.view.View;
 public class SpacesItemDecoration
         extends RecyclerView.ItemDecoration
 {
-
     private static final int HORIZONTAL = 0;
     private static final int VERTICAL = 1;
     private static final int GRID = 2;

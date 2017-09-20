@@ -19,7 +19,8 @@ import retrofit2.Response;
 public class RestClientImpl
         implements RestClient
 {
-    private RestApi restApi;
+    @NonNull
+    private final RestApi restApi;
 
     public RestClientImpl( @NonNull final RestApi restApi ){
         this.restApi = restApi;
@@ -28,7 +29,7 @@ public class RestClientImpl
     @Override
     public Observable<List<UserDTO>> requestUsers(){
         return restApi.requestUsers()
-                .map(response->{
+                .map(response -> {
                     checkResponse(response);
                     return response.body();
                 })
@@ -38,7 +39,7 @@ public class RestClientImpl
     @Override
     public Observable<List<PostDTO>> requestPosts( final int userId ){
         return restApi.requestPosts(userId)
-                .map(response->{
+                .map(response -> {
                     checkResponse(response);
                     return response.body();
                 })
@@ -48,7 +49,7 @@ public class RestClientImpl
     @Override
     public Observable<List<AlbumDTO>> requestAlbums( final int userId ){
         return restApi.requestAlbums(userId)
-                .map(response->{
+                .map(response -> {
                     checkResponse(response);
                     return response.body();
                 })
@@ -58,7 +59,7 @@ public class RestClientImpl
     @Override
     public Observable<List<AlbumDetailDTO>> requestAlbum( final int albumId ){
         return restApi.requestAlbum(albumId)
-                .map(response->{
+                .map(response -> {
                     checkResponse(response);
                     return response.body();
                 })
@@ -67,9 +68,9 @@ public class RestClientImpl
 
     @Override
     public Observable<PostDTO> sendPost( final int userId, @NonNull final String title, @NonNull final String body ){
-        NewPost post = new NewPost(userId, title, body);
+        final NewPost post = new NewPost(userId, title, body);
         return restApi.sendPost(post)
-                .map(response->{
+                .map(response -> {
                     checkResponse(response);
                     return response.body();
                 })

@@ -9,7 +9,8 @@ import java.io.IOException;
 
 public class NoConnectivityException extends IOException
 {
-    Context context;
+    @NonNull
+    private final Context context;
 
     public NoConnectivityException( @NonNull final Context context ){
         this.context = context;

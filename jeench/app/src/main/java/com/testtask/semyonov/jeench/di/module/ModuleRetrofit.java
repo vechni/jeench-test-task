@@ -26,7 +26,7 @@ public class ModuleRetrofit
     private OkHttpClient okHttpClient;
     private HttpLoggingInterceptor logging = null;
 
-    public ModuleRetrofit( Context context ){
+    public ModuleRetrofit( @NonNull final Context context ){
         addHttpLogging();
         initHttpClient(context);
         initRetrofit();

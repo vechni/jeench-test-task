@@ -47,7 +47,8 @@ public class ContentAlbumAdapter
         return dataSet.size();
     }
 
-    class ContentAlbumHolder extends RecyclerView.ViewHolder
+    class ContentAlbumHolder
+            extends RecyclerView.ViewHolder
     {
         @BindView( R.id.item_content_album_image ) AlbumImageView ivAvatar;
         @BindView( R.id.item_content_album_title ) TextView tvTitle;

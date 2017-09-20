@@ -27,7 +27,7 @@ public class ConnectivityInterceptor implements Interceptor
             throw new NoConnectivityException(context);
         }
 
-        Request.Builder builder = chain.request().newBuilder();
+        final Request.Builder builder = chain.request().newBuilder();
         return chain.proceed(builder.build());
     }
 }

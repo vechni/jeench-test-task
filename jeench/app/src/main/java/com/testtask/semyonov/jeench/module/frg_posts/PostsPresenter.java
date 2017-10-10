@@ -47,17 +47,18 @@ public class PostsPresenter
     }
 
     @Override
-    public void onButtonAddPostClicked(){
-        view.openAddPostView(userId);
+    public void onClickBtnAdd(){
+        view.navigateToAddPostScreen(userId);
     }
 
+    @NonNull
     private Disposable requestPosts(){
         return dataLayer.rest.requestPosts(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
+                .subscribe(response->{
                     view.updatePosts(mapToViewModel(response));
-                }, e -> {
+                }, e->{
                     if( e instanceof NoConnectivityException ){
                         view.showToastShort(e.getMessage());
                         return;
@@ -66,9 +67,10 @@ public class PostsPresenter
                 });
     }
 
+    @NonNull
     private List<PostViewModel> mapToViewModel( @NonNull final List<PostDTO> posts ){
-        List<PostViewModel> list = new ArrayList<>();
-        for( PostDTO post : posts ){
+        final List<PostViewModel> list = new ArrayList<>();
+        for( final PostDTO post : posts ){
             list.add(new PostViewModel(post.getId(), post.getTitle()));
         }
         return list;

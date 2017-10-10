@@ -2,7 +2,7 @@ package com.testtask.semyonov.jeench.module.frg_albums;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,7 +36,7 @@ public class AlbumsFragment
     private int userId = AppConst.DEFAULT_ID;
 
     @Override
-    public void onCreate( Bundle savedInstanceState ){
+    public void onCreate( @Nullable final Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
 
         final Bundle args = getArguments();
@@ -48,7 +48,9 @@ public class AlbumsFragment
     }
 
     @Override
-    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
+    public View onCreateView( @NonNull final LayoutInflater inflater,
+                              @Nullable final ViewGroup container,
+                              @Nullable final Bundle savedInstanceState ){
         super.onCreateView(inflater, container, savedInstanceState);
         final View root = inflater.inflate(R.layout.fragment_products, container, false);
         ButterKnife.bind(this, root);
@@ -95,7 +97,7 @@ public class AlbumsFragment
     {
         @Override
         public void onAlbumClicked( @NonNull final AlbumViewModel model ){
-            presenter.onAlbumClicked(model);
+            presenter.onClickItemAlbum(model);
         }
     };
 
@@ -106,7 +108,7 @@ public class AlbumsFragment
     }
 
     @Override
-    public void openAlbumDetailView( @NonNull final AlbumViewModel model ){
+    public void navigateToAlbumDetailScreen( @NonNull final AlbumViewModel model ){
         uiRouter.openAlbumDetailView(model.getId());
     }
 }

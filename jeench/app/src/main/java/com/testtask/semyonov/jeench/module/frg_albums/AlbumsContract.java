@@ -15,12 +15,12 @@ interface AlbumsContract
     {
         void updateInfoAlbums( @NonNull List<AlbumViewModel> items );
 
-        void openAlbumDetailView( @NonNull AlbumViewModel model );
+        void navigateToAlbumDetailScreen( @NonNull AlbumViewModel model );
     }
 
 
     interface Presenter
     {
-        void onAlbumClicked( @NonNull AlbumViewModel model );
+        void onClickItemAlbum( @NonNull AlbumViewModel model );
     }
 }

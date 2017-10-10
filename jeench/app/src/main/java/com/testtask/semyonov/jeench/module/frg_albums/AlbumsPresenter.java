@@ -47,17 +47,18 @@ public class AlbumsPresenter
     }
 
     @Override
-    public void onAlbumClicked( @NonNull final AlbumViewModel model ){
-        view.openAlbumDetailView(model);
+    public void onClickItemAlbum( @NonNull final AlbumViewModel model ){
+        view.navigateToAlbumDetailScreen(model);
     }
 
+    @NonNull
     private Disposable requestAlbums(){
         return dataLayer.rest.requestAlbums(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
+                .subscribe(response->{
                     view.updateInfoAlbums(mapToViewModel(response));
-                }, e -> {
+                }, e->{
                     if( e instanceof NoConnectivityException ){
                         view.showToastShort(e.getMessage());
                         return;
@@ -66,9 +67,10 @@ public class AlbumsPresenter
                 });
     }
 
+    @NonNull
     private List<AlbumViewModel> mapToViewModel( @NonNull final List<AlbumDTO> albums ){
-        List<AlbumViewModel> list = new ArrayList<>();
-        for( AlbumDTO album : albums ){
+        final List<AlbumViewModel> list = new ArrayList<>();
+        for( final AlbumDTO album : albums ){
             list.add(new AlbumViewModel(album.getId(), album.getTitle()));
         }
         return list;

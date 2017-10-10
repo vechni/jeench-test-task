@@ -15,8 +15,8 @@ interface PostContract
 
     interface Presenter
     {
-        void onConfirmAddPostClicked( @NonNull String title, @NonNull String body );
+        void onClickBtnConfirmAddPost( @NonNull String title, @NonNull String body );
 
-        void onCancelClicked();
+        void onClickBtnCancel();
     }
 }

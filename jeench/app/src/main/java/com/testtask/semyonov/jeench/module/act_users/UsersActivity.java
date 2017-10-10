@@ -2,9 +2,7 @@ package com.testtask.semyonov.jeench.module.act_users;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -91,7 +89,7 @@ public class UsersActivity
     {
         @Override
         public void onUserClicked( @NonNull final UserViewModel model ){
-            presenter.onUserClicked(model);
+            presenter.onClickItemUser(model);
         }
     };
 
@@ -103,7 +101,7 @@ public class UsersActivity
     }
 
     @Override
-    public void openUserView( @NonNull final UserViewModel model ){
+    public void navigateToUserScreen( @NonNull final UserViewModel model ){
         uiRouter.openUserView(model.getId(), model.getName(), model.getEmail(), model.getAddress());
     }
 

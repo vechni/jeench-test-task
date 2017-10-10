@@ -7,16 +7,16 @@ interface UserContract
     interface View
             extends MvpBaseView
     {
-        void showAlbumsView();
+        void navigateToAlbumsScreen();
 
-        void showPostsView();
+        void navigateToPostsScreen();
     }
 
 
     interface Presenter
     {
-        void onButtonAlbumsClicked();
+        void onClickBtnAlbums();
 
-        void onButtonPostsClicked();
+        void onClickBtnPosts();
     }
 }

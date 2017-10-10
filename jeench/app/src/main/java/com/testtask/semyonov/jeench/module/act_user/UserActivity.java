@@ -1,6 +1,7 @@
 package com.testtask.semyonov.jeench.module.act_user;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -102,22 +103,22 @@ public class UserActivity
     }
 
     @OnClick( R.id.activity_users_detail_btn_albums )
-    public void onButtonAlbumsClicked( final View view ){
-        presenter.onButtonAlbumsClicked();
+    public void onButtonAlbumsClicked( @NonNull final View view ){
+        presenter.onClickBtnAlbums();
     }
 
     @OnClick( R.id.activity_users_detail_btn_posts )
-    public void onButtonPostsClicked( final View view ){
-        presenter.onButtonPostsClicked();
+    public void onButtonPostsClicked( @NonNull final View view ){
+        presenter.onClickBtnPosts();
     }
 
     @Override
-    public void showAlbumsView(){
+    public void navigateToAlbumsScreen(){
         uiRouter.openAlbumsView(userId);
     }
 
     @Override
-    public void showPostsView(){
+    public void navigateToPostsScreen(){
         uiRouter.openPostsView(userId);
     }
 }

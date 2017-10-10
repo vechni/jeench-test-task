@@ -34,15 +34,16 @@ public class PostPresenter
     }
 
     @Override
-    public void onConfirmAddPostClicked( @NonNull final String title, @NonNull final String body ){
+    public void onClickBtnConfirmAddPost( @NonNull final String title, @NonNull final String body ){
         unsubscribeOnDestroy(addPostRequest(title, body));
     }
 
     @Override
-    public void onCancelClicked(){
+    public void onClickBtnCancel(){
         view.closeDialog();
     }
 
+    @NonNull
     private Disposable addPostRequest( @NonNull final String title, @NonNull final String body ){
         return dataLayer.rest.sendPost(userId, title, body)
                 .subscribeOn(Schedulers.io())

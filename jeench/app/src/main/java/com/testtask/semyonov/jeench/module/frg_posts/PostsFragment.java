@@ -2,6 +2,7 @@ package com.testtask.semyonov.jeench.module.frg_posts;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +39,7 @@ public class PostsFragment
     private int userId = AppConst.DEFAULT_ID;
 
     @Override
-    public void onCreate( Bundle savedInstanceState ){
+    public void onCreate( @Nullable final Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
         final Bundle args = getArguments();
         if( args != null ){
@@ -49,7 +50,9 @@ public class PostsFragment
     }
 
     @Override
-    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
+    public View onCreateView( @NonNull final LayoutInflater inflater,
+                              @Nullable final ViewGroup container,
+                              @Nullable final Bundle savedInstanceState ){
         super.onCreateView(inflater, container, savedInstanceState);
         final View root = inflater.inflate(R.layout.fragment_products, container, false);
         ButterKnife.bind(this, root);
@@ -95,8 +98,8 @@ public class PostsFragment
     }
 
     @OnClick( R.id.fragment_products_btn_add )
-    public void onButtonAddPostClicked( final View view ){
-        presenter.onButtonAddPostClicked();
+    public void onButtonAddPostClicked( @NonNull final View view ){
+        presenter.onClickBtnAdd();
     }
 
     @Override
@@ -106,7 +109,7 @@ public class PostsFragment
     }
 
     @Override
-    public void openAddPostView( final int userId ){
+    public void navigateToAddPostScreen( final int userId ){
         uiRouter.openAddPostView(userId);
     }
 }

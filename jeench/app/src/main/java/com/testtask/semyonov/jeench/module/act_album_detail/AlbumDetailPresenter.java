@@ -51,13 +51,14 @@ public class AlbumDetailPresenter
         unsubscribeOnDestroy(requestContentAlbum());
     }
 
+    @NonNull
     private Disposable requestContentAlbum(){
         return dataLayer.rest.requestAlbum(albumId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
+                .subscribe(response->{
                     view.updateContentAlbum(mapToViewModel(response));
-                }, e -> {
+                }, e->{
                     if( e instanceof NoConnectivityException ){
                         view.hideLoadIndicator();
                         view.showToastShort(e.getMessage());
@@ -67,10 +68,11 @@ public class AlbumDetailPresenter
                 });
     }
 
+    @NonNull
     private List<ContentAlbumViewModel> mapToViewModel( @NonNull final List<AlbumDetailDTO> albumDetails ){
-        List<ContentAlbumViewModel> list = new ArrayList<>();
-        for( AlbumDetailDTO detail : albumDetails ){
-            list.add(new ContentAlbumViewModel(detail.getTitle(), detail.getUrl()));
+        final List<ContentAlbumViewModel> list = new ArrayList<>();
+        for( final AlbumDetailDTO item : albumDetails ){
+            list.add(new ContentAlbumViewModel(item.getTitle(), item.getUrl()));
         }
         return list;
     }

@@ -31,7 +31,7 @@ public abstract class BaseActivity
 
     @CallSuper
     @Override
-    protected void onCreate( @Nullable Bundle savedInstanceState ){
+    protected void onCreate( @Nullable final Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
     }
@@ -47,7 +47,7 @@ public abstract class BaseActivity
         return component;
     }
 
-    public void openWaitDialog( @NonNull final String message, @NonNull final OnCancelListener listener ){
+    public void openWaitDialog( @NonNull final String message, @Nullable final OnCancelListener listener ){
         closeWaitDialog();
 
         progressDialog = new ProgressDialog(this);
@@ -73,8 +73,7 @@ public abstract class BaseActivity
     }
 
     public void showToastLong( @StringRes final int resId ){
-        Toast.makeText(this, getString(resId), Toast.LENGTH_LONG)
-                .show();
+        Toast.makeText(this, getString(resId), Toast.LENGTH_LONG).show();
     }
 
     public void showToastShort( @StringRes final int resId ){
@@ -82,16 +81,16 @@ public abstract class BaseActivity
     }
 
     public void hideKeyboard(){
-        View view = getCurrentFocus();
+        final View view = getCurrentFocus();
 
         if( view != null ){
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
     public void showKeyboard(){
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 }

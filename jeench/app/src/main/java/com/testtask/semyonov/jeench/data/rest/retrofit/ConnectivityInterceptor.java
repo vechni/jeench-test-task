@@ -12,7 +12,8 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ConnectivityInterceptor implements Interceptor
+public class ConnectivityInterceptor
+        implements Interceptor
 {
     @NonNull
     private final Context context;
@@ -22,8 +23,8 @@ public class ConnectivityInterceptor implements Interceptor
     }
 
     @Override
-    public Response intercept( Chain chain ) throws IOException{
-        if( ! NetworkUtils.isNetworkConnection(context) ){
+    public Response intercept( @NonNull final Chain chain ) throws IOException{
+        if( !NetworkUtils.isNetworkConnection(context) ){
             throw new NoConnectivityException(context);
         }
 

@@ -15,12 +15,12 @@ interface PostsContract
     {
         void updatePosts( @NonNull List<PostViewModel> dataSet );
 
-        void openAddPostView(int userId);
+        void navigateToAddPostScreen( int userId );
     }
 
 
     interface Presenter
     {
-        void onButtonAddPostClicked();
+        void onClickBtnAdd();
     }
 }

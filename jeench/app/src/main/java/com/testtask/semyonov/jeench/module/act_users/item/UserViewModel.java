@@ -9,7 +9,7 @@ public class UserViewModel
     @NonNull private String email;
     @NonNull private String address;
 
-    public UserViewModel( @NonNull final int id,
+    public UserViewModel( final int id,
                           @NonNull final String name,
                           @NonNull final String email,
                           @NonNull final String address ){

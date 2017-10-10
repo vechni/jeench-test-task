@@ -7,6 +7,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
@@ -31,7 +32,7 @@ public abstract class BaseDialogFragment
 
     @CallSuper
     @Override
-    public void onCreate( Bundle savedInstanceState ){
+    public void onCreate( @Nullable final Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
         activity = getActivity();
         getComponent().inject(this);
@@ -48,7 +49,7 @@ public abstract class BaseDialogFragment
         return component;
     }
 
-    public void openWaitDialog( @NonNull final String message, @NonNull final OnCancelListener listener ){
+    public void openWaitDialog( @NonNull final String message, @Nullable final OnCancelListener listener ){
         closeWaitDialog();
 
         progressDialog = new ProgressDialog(activity);
@@ -70,8 +71,7 @@ public abstract class BaseDialogFragment
     }
 
     public void showToastLong( @NonNull final String message ){
-        Toast.makeText(activity, message, Toast.LENGTH_LONG)
-                .show();
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
 
     public void showToastLong( @StringRes final int resId ){
@@ -83,16 +83,16 @@ public abstract class BaseDialogFragment
     }
 
     public void hideKeyboard(){
-        View view = activity.getCurrentFocus();
+        final View view = activity.getCurrentFocus();
 
         if( view != null ){
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
     public void showKeyboard(){
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 }

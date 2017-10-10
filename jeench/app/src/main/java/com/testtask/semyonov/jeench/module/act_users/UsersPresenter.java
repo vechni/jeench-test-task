@@ -51,17 +51,18 @@ public class UsersPresenter
     }
 
     @Override
-    public void onUserClicked( @NonNull final UserViewModel model ){
-        view.openUserView(model);
+    public void onClickItemUser( @NonNull final UserViewModel model ){
+        view.navigateToUserScreen(model);
     }
 
+    @NonNull
     private Disposable requestUsers(){
         return dataLayer.rest.requestUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
+                .subscribe(response->{
                     view.updateUsers(mapToViewModel(response));
-                }, e -> {
+                }, e->{
                     if( e instanceof NoConnectivityException ){
                         view.hideLoadIndicator();
                         view.showToastShort(e.getMessage());
@@ -71,13 +72,14 @@ public class UsersPresenter
                 });
     }
 
+    @NonNull
     private List<UserViewModel> mapToViewModel( @NonNull final List<UserDTO> users ){
-        List<UserViewModel> list = new ArrayList<>();
-        for( UserDTO user : users ){
-            list.add(new UserViewModel(user.getId(),
-                                       user.getName(),
-                                       user.getEmail(),
-                                       formatAddress(user.getAddress())));
+        final List<UserViewModel> list = new ArrayList<>();
+        for( final UserDTO item : users ){
+            list.add(new UserViewModel(item.getId(),
+                                       item.getName(),
+                                       item.getEmail(),
+                                       formatAddress(item.getAddress())));
         }
         return list;
     }

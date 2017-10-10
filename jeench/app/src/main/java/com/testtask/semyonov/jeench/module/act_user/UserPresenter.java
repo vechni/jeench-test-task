@@ -30,16 +30,16 @@ public class UserPresenter
     @Override
     public void onStart(){
         super.onStart();
-        view.showAlbumsView();
+        view.navigateToAlbumsScreen();
     }
 
     @Override
-    public void onButtonAlbumsClicked(){
-        view.showAlbumsView();
+    public void onClickBtnAlbums(){
+        view.navigateToAlbumsScreen();
     }
 
     @Override
-    public void onButtonPostsClicked(){
-        view.showPostsView();
+    public void onClickBtnPosts(){
+        view.navigateToPostsScreen();
     }
 }
